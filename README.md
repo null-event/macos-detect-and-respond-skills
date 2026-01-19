@@ -2,9 +2,13 @@
 
 A comprehensive knowledge base for macOS threat detection and response, packaged as a Gemini CLI skill. Provides reference materials, workflows, and expert guidance for writing detections, analyzing telemetry, and triaging alerts on macOS systems.
 
+<br>
+
 ## Overview
 
 This Gemini skill contains curated reference materials covering macOS security telemetry, adversary techniques, and detection engineering patterns across multiple platforms (Splunk, Sigma, osquery, Elastic, Sentinel, and more). It's designed to help security engineers, detection engineers, and threat hunters understand macOS-specific detection opportunities and build high-quality detections for macOS threats.
+
+---
 
 ## Key Features
 
@@ -14,10 +18,15 @@ This Gemini skill contains curated reference materials covering macOS security t
 - **Triage workflows** - Guidance for analyzing alerts and distinguishing benign from malicious behavior
 - **Gemini CLI skill integration** - Interactive assistant for detection writing and analysis
 
-## Gemini Skills vs. Extensions
-Unlike general context files (GEMINI.md), which provide persistent workspace-wide background, Skills represent on-demand expertise. This allows Gemini to maintain a vast library of specialized capabilities—such as security auditing, cloud deployments, or codebase migrations—without cluttering the model’s immediate context window.
+<br>
 
-Gemini autonomously decides when to employ a skill based on your request and the skill’s description. When a relevant skill is identified, the model “pulls in” the full instructions and resources required to complete the task using the activate_skill tool.
+## Gemini Skills vs. Extensions
+
+Unlike general context files (GEMINI.md), which provide persistent workspace-wide background, Skills represent on-demand expertise. This allows Gemini to maintain a vast library of specialized capabilities—such as security auditing, cloud deployments, or codebase migrations—without cluttering the model's immediate context window.
+
+Gemini autonomously decides when to employ a skill based on your request and the skill's description. When a relevant skill is identified, the model "pulls in" the full instructions and resources required to complete the task using the activate_skill tool.
+
+---
 
 ## Installation
 
@@ -26,6 +35,7 @@ Gemini autonomously decides when to employ a skill based on your request and the
 This skill is designed to work with [Gemini CLI](https://geminicli.com/).
 
 **Installation:**
+
 ```bash
 # Clone or copy this directory to your Gemini skills directory
 # The skill will be automatically discovered by Gemini
@@ -38,7 +48,10 @@ gemini skills install /path/to/skill --scope workspace
 gemini skills list
 ```
 
+<br>
+
 **Example interactions:**
+
 ```
 > Write a detection for credential dumping on macOS
 > What Endpoint Security events show process execution?
@@ -48,6 +61,8 @@ gemini skills list
 ```
 
 The skill will automatically reference the appropriate materials and guide you through detection development.
+
+---
 
 ## Repository Structure
 
@@ -66,11 +81,15 @@ The skill will automatically reference the appropriate materials and guide you t
 └── assets/                     # (Reserved for diagrams/images)
 ```
 
+---
+
 ## Quick Start
 
 ### Using the Knowledge Base
 
 Browse the `references/` directory for specific topics:
+
+<br>
 
 **Want to understand macOS telemetry?**
 - Start with `references/macos-telemetry-sources.md` for an overview
@@ -86,6 +105,8 @@ Browse the `references/` directory for specific topics:
 **Triaging alerts?**
 - Consult `references/triage-guidance.md` for workflows and benign indicators
 
+---
+
 ## Common Use Cases
 
 ### 1. Writing a Detection
@@ -93,12 +114,16 @@ Browse the `references/` directory for specific topics:
 **Scenario:** Detect unsigned binaries executing from /tmp
 
 **Process:**
+
 1. Identify telemetry source: `ES_EVENT_TYPE_NOTIFY_EXEC` (from `endpoint-security-framework.md`)
 2. Map to ATT&CK: T1204.002 - User Execution: Malicious File (from `attack-macos.md`)
 3. Write platform-specific query (using `splunk-detection-patterns.md` or `sigma-macos.md`)
 4. Add false positive filters (exclude known benign processes)
 
+<br>
+
 **Example Splunk query:**
+
 ```spl
 index=macos sourcetype="esf:json" event_type="ES_EVENT_TYPE_NOTIFY_EXEC"
 | where isnull('process.signing_id') OR 'process.signing_id'=""
@@ -106,27 +131,35 @@ index=macos sourcetype="esf:json" event_type="ES_EVENT_TYPE_NOTIFY_EXEC"
 | table _time, host, user, process.executable.path, process.cmdline, process.parent.name
 ```
 
+<br>
+
 ### 2. Understanding Telemetry
 
 **Scenario:** What macOS logs show file modifications?
 
 **Answer (from reference materials):**
+
 - **Endpoint Security:** `ES_EVENT_TYPE_NOTIFY_WRITE`, `ES_EVENT_TYPE_NOTIFY_CLOSE`
 - **File System Events:** FSEvents API for file system change tracking
 - **osquery:** `file_events` table (requires FIM configuration)
 
 See `references/macos-telemetry-sources.md` and `references/endpoint-security-framework.md` for details.
 
+<br>
+
 ### 3. Triaging an Alert
 
 **Scenario:** Alert triggered for new launch agent creation
 
 **Triage steps (from `triage-guidance.md`):**
+
 1. **Who created it?** Check the instigator process and user
 2. **What's the target?** Examine the executable path and code signature
 3. **Where is it?** User LaunchAgents vs system LaunchDaemons
 4. **Benign indicators:** Apple-signed, created by known installer, well-known app
 5. **Suspicious indicators:** Unsigned, executable in /tmp, unusual program arguments
+
+---
 
 ## Detection Coverage by Tactic
 
@@ -147,6 +180,8 @@ The reference materials provide detection guidance across MITRE ATT&CK tactics:
 
 See `references/attack-macos.md` for comprehensive coverage.
 
+---
+
 ## Supported Detection Platforms
 
 This knowledge base provides guidance for multiple platforms:
@@ -159,6 +194,8 @@ This knowledge base provides guidance for multiple platforms:
 - **Jamf Protect** - Analytics for Jamf's EDR
 - **CrowdStrike Falcon** - Query patterns for CrowdStrike
 - **Santa** - Binary/certificate allow/deny rules
+
+---
 
 ## Key Concepts
 
@@ -173,6 +210,8 @@ The macOS Endpoint Security (ES) framework provides kernel-level telemetry for s
 
 See `references/endpoint-security-framework.md` for the complete event catalog.
 
+<br>
+
 ### Detection Best Practices
 
 1. **Start with ATT&CK** - Understand the adversary technique first
@@ -182,6 +221,8 @@ See `references/endpoint-security-framework.md` for the complete event catalog.
 5. **Test thoroughly** - Validate against production baselines
 6. **Document limitations** - Note expected false positives and version requirements
 
+---
+
 ## Known Limitations
 
 - **Userspace ES events** can be bypassed by non-Apple implementations
@@ -190,6 +231,8 @@ See `references/endpoint-security-framework.md` for the complete event catalog.
 - **Code signing** - Pages validated on-demand; invalid pages may load later
 
 See individual reference files for detailed limitations.
+
+---
 
 ## Use Cases
 
@@ -202,6 +245,8 @@ This skill is designed for:
 - **Red teams** understanding detection coverage
 - **Security researchers** studying macOS security instrumentation
 
+---
+
 ## Additional Resources
 
 - [Apple Endpoint Security Framework Documentation](https://developer.apple.com/documentation/endpointsecurity)
@@ -211,9 +256,13 @@ This skill is designed for:
 - [macOS Security and Privacy Guide](https://github.com/drduh/macOS-Security-and-Privacy-Guide)
 - [Gemini CLI Documentation](https://geminicli.com/)
 
+<br>
+
 ## Related Projects
 
 - **Claude Code Skill** - Sister project with the same knowledge base for Claude Code: [macos-detect-and-respond-cc](https://github.com/null-event/macos-detect-and-respond-cc)
+
+<br>
 
 ## License
 
@@ -221,4 +270,4 @@ This skill is designed for:
 
 ---
 
-**Note:** This is a reference skill, not a software project. There are no build processes, test suites, or deployment pipelines. Users interact with this skill through Gemini CLI by asking detection engineering questions.
+> **Note:** This is a reference skill, not a software project. There are no build processes, test suites, or deployment pipelines. Users interact with this skill through Gemini CLI by asking detection engineering questions.
