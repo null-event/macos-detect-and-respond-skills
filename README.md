@@ -266,7 +266,7 @@ This skill is designed for:
 
 ## License
 
-[Specify license here]
+MIT
 
 ---
 
