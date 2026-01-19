@@ -77,7 +77,14 @@ The skill will automatically reference the appropriate materials and guide you t
 │   ├── splunk-detection-patterns.md
 │   ├── sigma-macos.md
 │   └── triage-guidance.md
-├── scripts/                    # (Reserved for future scripts)
+├── scripts/                    # Utility scripts for detection engineering and triage
+│   ├── README.md               # Detailed script documentation
+│   ├── triage-process.sh       # Investigate suspicious processes
+│   ├── check-code-signature.sh # Analyze binary signatures
+│   ├── analyze-launch-agent.sh # Inspect persistence mechanisms
+│   ├── collect-es-events.sh    # Collect Endpoint Security events
+│   ├── generate-sigma-rule.py  # Interactive Sigma rule generator
+│   └── convert-detection.py    # Convert detection formats between platforms
 └── assets/                     # (Reserved for diagrams/images)
 ```
 
