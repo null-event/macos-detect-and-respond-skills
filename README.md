@@ -1,4 +1,4 @@
-# macOS Detect and Respond - Gemini Skill
+# macOS Detect and Respond - Agentic Skill
 
 A comprehensive knowledge base for macOS threat detection and response, packaged as a Claude Code and Gemini CLI skill. Provides reference materials, workflows, and expert guidance for writing detections, analyzing telemetry, and triaging alerts on macOS systems.
 
@@ -35,6 +35,8 @@ Gemini/CC/etc autonomously decides when to employ a skill based on your request 
     Follow the Claude Code guide here to add the macOS Detect and Respond skill (<a href="https://code.claude.com/docs/en/skills">guide</a>):
 
 ```bash
+# Clone or copy this directory to your Claude Code skills directory
+# The skill will be automatically discovered by Claude Code
 git clone https://github.com/null-event/macos-detect-and-respond-skill.git ~/.claude/skills/macos-detect-and-respond-skill
 ```
 
@@ -48,24 +50,10 @@ git clone https://github.com/null-event/macos-detect-and-respond-skill.git ~/.cl
 # Clone or copy this directory to your Gemini skills directory
 # The skill will be automatically discovered by Gemini
 # Note: as of 01/20/26 this is still a feature enabled via experimental.skills. You can also search for “Skills” within the /settings interactive UI to toggle this and manage other skill-related settings in Gemini.
+
 git clone https://github.com/null-event/macos-detect-and-respond-skill.git ~/.gemini/skills/macos-detect-and-respond-skill
 ```
 </details>
-
-### Using with Gemini CLI
-
-This skill is designed to work with [Gemini CLI](https://geminicli.com/).
-
-**Installation:**
-
-```bash
-# Clone or copy this directory to your Gemini skills directory
-# The skill will be automatically discovered by Gemini
-git clone https://github.com/null-event/macos-detect-and-respond-gemini.git ~/.gemini/skills/macos-detect-and-respond-gemini
-
-# Verify the skill is loaded
-gemini skills list
-```
 
 <br>
 
@@ -87,7 +75,7 @@ The skill will automatically reference the appropriate materials and guide you t
 
 ```
 .
-├── SKILL.md                    # Gemini skill definition for macOS detection engineering
+├── SKILL.md                    # Skill definition for macOS detection engineering
 ├── references/                 # Reference documentation (knowledge sources)
 │   ├── endpoint-security-framework.md
 │   ├── attack-macos.md
@@ -281,14 +269,7 @@ This skill is designed for:
 - [Sigma Rules Repository](https://github.com/SigmaHQ/sigma)
 - [macOS Security and Privacy Guide](https://github.com/drduh/macOS-Security-and-Privacy-Guide)
 - [Gemini CLI Documentation](https://geminicli.com/)
-
-<br>
-
-## Related Projects
-
-- **Claude Code Skill** - Sister project with the same knowledge base for Claude Code: [macos-detect-and-respond-cc](https://github.com/null-event/macos-detect-and-respond-cc)
-
-<br>
+- [Claude Code Agent Skills Documentation](https://code.claude.com/docs/en/skills)
 
 ## License
 
