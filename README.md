@@ -204,12 +204,8 @@ This knowledge base provides guidance for multiple platforms:
 
 - **Splunk** - SPL queries for ES events, unified logs, osquery results
 - **Elastic Security** - Query DSL and detection rules
-- **Microsoft Sentinel** - KQL queries for macOS telemetry
 - **Sigma** - Platform-agnostic detection rules
 - **osquery** - SQL queries for endpoint data
-- **Jamf Protect** - Analytics for Jamf's EDR
-- **CrowdStrike Falcon** - Query patterns for CrowdStrike
-- **Santa** - Binary/certificate allow/deny rules
 
 ---
 
